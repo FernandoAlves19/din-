@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 
 Auth::routes(['verify' => true]);
 
@@ -26,3 +28,12 @@ Route::middleware(['auth', 'verified'])->prefix('profile')->group(function () {
     Route::patch('/{user}/name', 'ProfileController@updateName')->name('profile.update.name');
     Route::patch('/{user}/pass', 'ProfileController@updatePass')->name('profile.update.pass');
 });
+
+Route::put('/themes', function(Request $request) {
+    $request->validate([
+       'theme' => ['required', Rule::in(['darkly', 'cerulean'])]
+    ]);
+
+    session(['theme' => $request->theme]);
+    return back();
+ })->name('dark.mode');
