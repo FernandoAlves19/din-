@@ -11,12 +11,12 @@
 
 Clona o projeto via Https
 ```bash
-$ git clone https://github.com/diegovernan/laravel_gestfin.git
+$ git clone https://github.com/FernandoAlves19/din-.git
 ```
 
 Clona o projeto via SSH
 ```bash
-$ git clone git@github.com:diegovernan/laravel_gestfin.git
+$ git clone git@github.com:FernandoAlves19/din-.git
 ```
 
 Instala o composer

@@ -151,9 +151,9 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="text-right">
-                        <span>Por <a href="https://www.diegovernan.com.br" target="_blank" class="text-primary">Diego Vernan</a></span>
+                        <span>Por <a href="https://www.google.com.br" target="_blank" class="text-primary">Diego Vernan</a></span>
                     </div>
                 </div>
             </div>
