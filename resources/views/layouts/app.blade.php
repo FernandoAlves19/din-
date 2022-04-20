@@ -21,7 +21,10 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://bootswatch.com/5/quartz/bootstrap.css" rel="stylesheet">
+    {{-- <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/{{ session('theme', 'cerulean') }}/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/{{ session('theme', 'darkly') }}/bootstrap.min.css" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
@@ -64,6 +67,17 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                <form action="{{ route('dark.mode') }}" method="PUT">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="theme">
+                                       <option value="darkly">Dark</option>
+                                       <option value="cerulean">Light</option>
+                                    </select>
+                                    <button type="submit">ok</button>
+                                 </form>
+
                                 <a class="dropdown-item" href="{{ route('profile') }}">Meu perfil</a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
