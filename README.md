@@ -1,2 +1,2 @@
-# din-
+# iDin!
 App Gestão Pessoal/Familiar
