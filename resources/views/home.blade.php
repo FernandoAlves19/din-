@@ -24,9 +24,9 @@
                     <div class="d-flex justify-content-between flex-wrap d-print-none">
                         <div class="mb-3">
                             <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#storeCategory">Categoria</button>
-                            @include('modals.store-category')
+                            {{-- @include('modals.store-category') --}}
                             <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#storeTransaction">Transação</button>
-                            @include('modals.store-transaction')
+                            {{-- @include('modals.store-transaction') --}}
                         </div>
 
                         <div class="btn-group mb-3" role="group" aria-label="Basic example">
@@ -153,7 +153,7 @@
                     </div>
 
                     <div class="text-right">
-                        <span>Por <a href="https://www.google.com.br" target="_blank" class="text-primary">Diego Vernan</a></span>
+                        <span>By <a href="https://github.com/FernandoAlves19" target="_blank" class="text-primary">Fernando Alves</a></span>
                     </div>
                 </div>
             </div>
@@ -161,3 +161,114 @@
     </div>
 </div>
 @endsection
+
+<!-- Modal Store Category-->
+<div class="modal" id="storeCategory" tabindex="-1" role="dialog" aria-labelledby="storeCategoryTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="storeCategoryTitle">Adicionar categoria</h5>
+                <button type="button" class="btn-close btn-outline-primary" data-dismiss="modal" aria-label="Close">
+                    {{-- <span aria-hidden="true">&times;</span> --}}
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" action="{{ route('home.store.category') }}">
+                    <fieldset>
+                    @csrf
+                    <div class="form-group">
+                        <label for="InputName"  class="form-label mt-4">Nome</label>
+                        <input type="text" class="form-control" id="InputName" name="name" value="{{ old('name') }}">
+                    </div>
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+
+                <hr>
+
+                @foreach ($categories as $category)
+                <p class="d-flex justify-content-between">
+
+                    <form method="post" action="{{ route('home.delete.category', $category->id) }}">
+                        @csrf
+                        @method('DELETE')
+
+                        {{ $category->name }}
+
+                        <button type="submit" class="btn-close btn btn-outline-primary"  onclick="return confirm('Tem certeza que deseja excluir?')">
+                            {{-- <span aria-hidden="true">&times;</span> --}}
+                        </button>
+                    </fieldset>
+                    </form>
+                </p>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Store Transaction-->
+<div class="modal " id="storeTransaction" tabindex="-1" role="dialog" aria-labelledby="storeTransactionTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="storeTransactionTitle">Adicionar transação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" action="{{ route('home.store.transaction') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="inputDesc">Descrição</label>
+                        <input type="text" class="form-control form-control-sm" id="inputDesc" name="description" value="{{ old('description') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputDate">Data</label>
+                        <input type="date" class="form-control form-control-sm" id="inputDate" name="date" value="{{ old('date') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputValue">Valor</label>
+                        <input type="text" class="form-control form-control-sm money" id="inputValue" name="value" value="{{ old('value') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputCat">Categoria</label>
+                        <select id="inputCat" class="form-control form-control-sm" name="category_id">
+                            <option value="none" selected disabled hidden>Selecionar...</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="form-check">Tipo</label><br>
+                        <div class="form-check form-check-inline" id="form-check">
+                            <input class="form-check-input" type="radio" name="type" id="inlineRadio1" value="1" {{ old('type') == '1' ? 'checked' : '' }}>
+                            <label class="form-check-label text-success" for="inlineRadio1">Receita</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="inlineRadio2" value="0" {{ old('type') == '0' ? 'checked' : '' }}>
+                            <label class="form-check-label text-danger" for="inlineRadio2">Despesa</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="inlineRadio3" value="" disabled>
+                            <label class="form-check-label" for="inlineRadio3">Outro (desabilitado)</label>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
