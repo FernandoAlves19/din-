@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Family;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Requests\NameRequest;
 use App\Http\Requests\PassRequest;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ProfileController extends Controller
 {
@@ -36,5 +38,24 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Senha atualizada!');
+    }
+
+    public function cadastrarMembro(Request $request,  User $user)
+    {
+        Family::create([
+            'name' => $request->familyName,
+        ]);
+
+        $family = Family::get()->last();
+
+        $user->family_id = $family->id;
+        $user->save();
+
+        $newMenber = User::where('email', $request->email)->first();
+
+        $newMenber->family_id = $family->id;
+        $newMenber->save();
+
+        return redirect()->back()->with('success', 'Membro Cadastrado!');
     }
 }

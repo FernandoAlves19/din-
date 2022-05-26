@@ -65,6 +65,40 @@
 
             <br>
 
+            <!-- Family card -->
+            <div class="card">
+                <div class="card-header text-center">
+                    <span>Familia</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="card-header text-center">
+                    <span >Cadastrar membro da Familia</span>
+                    </div>
+                    <form method="post" action="{{ route('cadastar.membro', $user->id) }}">
+                        @csrf
+                        @method('PATCH')
+                        {{-- <div class="form-group">
+                            <label for="Input1">Nome</label>
+                            <input type="text" class="form-control" id="Input1" name="name" value="{{ old('name') ?? $user->name }}">
+                        </div> --}}
+
+                        <div class="form-group">
+                            <label for="Input3">Nome da Família</label>
+                            <input type="text" class="form-control" id="Input3" name="familyName" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="Input2">E-mail</label>
+                            <input type="text" class="form-control" id="Input2" name="email" value="">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </form>
+                </div>
+            </div>
+
+            <br>
+
             <div class="float-right">
                 <a href="{{ route('home') }}" class="btn btn-secondary">Voltar</a>
             </div>

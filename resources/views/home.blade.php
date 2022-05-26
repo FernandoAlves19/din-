@@ -112,6 +112,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Data</th>
+                                            <th scope="col">Usuário</th>
                                             <th scope="col">Transação</th>
                                             <th scope="col">Categoria</th>
                                             <th scope="col" class="text-right">Valor</th>
@@ -121,6 +122,7 @@
                                         @forelse ($transactions as $transaction)
                                         <tr>
                                             <td>{{ date('d/m/Y', strtotime($transaction->date)) }}</td>
+                                            <td>{{ $transaction->user->name }}</td>
                                             <td>
                                                 <a href="" target="_blank" data-toggle="modal" data-target="#updateTransaction{{ $transaction->id }}">{{ $transaction->description }}</a>
                                                 @include('modals.update-transaction')

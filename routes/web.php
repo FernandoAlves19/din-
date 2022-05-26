@@ -27,7 +27,12 @@ Route::middleware(['auth', 'verified'])->prefix('profile')->group(function () {
 
     Route::patch('/{user}/name', 'ProfileController@updateName')->name('profile.update.name');
     Route::patch('/{user}/pass', 'ProfileController@updatePass')->name('profile.update.pass');
+
+    Route::patch('/{user}/family', 'ProfileController@cadastrarFamilia')->name('cadastar.familia');
+    Route::patch('/{user}/family', 'ProfileController@cadastrarMembro')->name('cadastar.membro');
 });
+
+
 
 Route::put('/themes', function(Request $request) {
     $request->validate([
