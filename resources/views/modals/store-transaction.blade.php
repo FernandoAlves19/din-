@@ -1,6 +1,6 @@
 <!-- Modal Store Transaction-->
-<div class="modal fade" id="storeTransaction" tabindex="-1" role="dialog" aria-labelledby="storeTransactionTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal " id="storeTransaction" tabindex="-1" role="dialog" aria-labelledby="storeTransactionTitle" aria-hidden="true">
+    <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="storeTransactionTitle">Adicionar transação</h5>
