@@ -3,7 +3,7 @@
 return [
 
     'Login' => 'Acesso',
-    'Register' => 'Registro',
+    'Register' => 'Cadastre-se',
     'Logout' => 'Sair',
 
 ];
