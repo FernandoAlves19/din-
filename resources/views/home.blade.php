@@ -29,7 +29,10 @@
                         @endfor
                     </select>
                 </div>
-                <div class="col-10" style="overflow-y: auto; display: inline-block !important; justify-content: space-between;">
+                <div class="col-1">
+
+                </div>
+                <div class="col-9" style="overflow-y: auto; display: inline-block !important; justify-content: space-between;">
                     <ul style="flex-wrap:nowrap;" class="nav nav-tabs" role="tablist">
                         @for ($m = 1; $m <= 12; $m++)
                             <li class="nav-item">
@@ -63,7 +66,7 @@
                                     @php
                                         $name = explode(' ', $transaction->user->name);
                                     @endphp
-                                    <td>{{ date('d/m', strtotime($transaction->date)) }}</td>
+                                    <td><a href="" target="_blank" data-toggle="modal" data-target="#updateTransaction{{ $transaction->id }}" >{{ date('d/m', strtotime($transaction->date)) }} @include('modals.update-transaction')</a></td>
                                     <td>{{ $name[0] }}</td>
                                     {{-- <td>
                                     <a href="" target="_blank" data-toggle="modal" data-target="#updateTransaction{{ $transaction->id }}">{{ $transaction->description }}</a>
@@ -84,7 +87,7 @@
                                     <td colspan="5" class="text-center">Nenhuma transação encontrada...</td>
                                 </tr>
                             @endforelse
-                            {{-- <tr
+                            <tr
                                     class="table-secondary {{ $month_one - $month_zero >= 0 ? 'text-success' : 'text-danger' }}">
                                     <td colspan="3">
                                         <strong>Total do mês</strong>
@@ -92,7 +95,7 @@
                                     <td colspan="4" class="text-right">
                                         <strong>{{ formattedMoney($month_one - $month_zero) }}</strong>
                                     </td>
-                                </tr> --}}
+                                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -116,14 +119,12 @@
                     <div class="row">
                         <div class="col">
                             <span style="text-align: center; color: rgb(126, 126, 126);">Receita</span><br>
-                            <span class="text-success" style="text-align: center; font-size: 1.0rem; font-weight: bold; ">R$
-                                3.800,00</span>
+                            <span class="text-success" style="text-align: center; font-size: 1.0rem; font-weight: bold; ">{{ formattedMoney($month_one) }}</span>
                         </div>
                         <div class="col">
                             <span style="text-align: center; color: rgb(126, 126, 126); float:inline-end">Despesa</span><br>
                             <span class="text-danger"
-                                style="text-align: center; font-size: 1.0rem; font-weight: bold; float:inline-end">R$
-                                800,00</span>
+                                style="text-align: center; font-size: 1.0rem; font-weight: bold; float:inline-end">{{ formattedMoney($month_zero) }}</span>
                         </div>
                     </div>
                 </div>
@@ -132,7 +133,7 @@
         </div>
     </div>
 
-    <div style="position: relative; bottom: 0; margin-bottom: 3% !important;width: auto; margin-left: auto !important; margin-right: auto !important;"class="card p-3 col-12 justify-content-center">
+    <div style="position: fixed; bottom: 0; margin-bottom: 3% !important;width: 94%; margin-left: auto !important; margin-right: auto !important;"class="card p-3 col-12 justify-content-center">
 
             <div class="row">
                 <div class="col-3">
@@ -140,8 +141,7 @@
                 </div>
                 <div class="col-6" style="justify-content: center; align-items: center;">
                     <p class="m-0" style="text-align: center; color: rgb(126, 126, 126)">Saldo</p>
-                    <p class="text-success" style="text-align: center;font-size: 1.5rem; font-weight: bold; ">R$
-                        2.760,00</p>
+                    <p class="text-success" style="text-align: center;font-size: 1.5rem; font-weight: bold; ">{{ formattedMoney($month_one - $month_zero) }}</p>
                 </div>
                 <div class="col-3">
                     <button style="font-size: 1.1rem; font-weight: bold; float:inline-end"

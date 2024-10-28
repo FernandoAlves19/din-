@@ -42,8 +42,8 @@
                 <div class="header-top">
                     <div class="container">
                         <div class="logo">
-                            <a href="{{ url('/') }}"><img style="width: 60%; height: 60%"
-                                    src="{{ url('/') }}/assets/static/images/logo/logo.png" alt="Logo"></a>
+                            {{-- <a href="{{ url('/') }}"><img style="width: 60%; height: 60%"
+                                    src="{{ url('/') }}/assets/static/images/logo/logo.png" alt="Logo"></a> --}}
                         </div>
                         <div class="header-top-right">
 
@@ -54,18 +54,19 @@
                                     <div class="avatar avatar-md2">
                                         <img src="./assets/compiled/jpg/1.jpg" alt="Avatar">
                                     </div>
+
                                     <div class="text">
-                                        <h6 class="user-dropdown-name">Nando Alves</h6>
-                                        <p class="user-dropdown-status text-sm text-muted">Member</p>
+                                        <h6 class="user-dropdown-name">{{ Auth::user()->name }}</h6>
+                                        <p class="user-dropdown-status text-sm text-muted">Membro</p>
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                                     style="min-width: 11rem;">
                                     <li>
                                         @php
-                                            // $nome = explode(' ', Auth::user()->funcionario->nome);
+                                            $nome = explode(' ', Auth::user()->name);
                                         @endphp
-                                        <h6 class="dropdown-header">Olá, Nando!</h6>
+                                        <h6 class="dropdown-header">Olá, {{ $nome[0] }}!</h6>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('profile') }}"><i
                                                 class="icon-mid bi bi-person me-2"></i> Meu perfil</a></li>
@@ -205,6 +206,13 @@
     {{-- <script>
         document.body.style.overflow = "hidden";
     </script> --}}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('.money').mask("#0,00", {
+                reverse: true
+            });
+        });
+    </script>
 
 </body>
 
@@ -282,11 +290,5 @@
         </main>
     </div>
 
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            jQuery('.money').mask("#0,00", {
-                reverse: true
-            });
-        });
-    </script>
+
 </body> --}}

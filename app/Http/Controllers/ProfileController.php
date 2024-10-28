@@ -40,6 +40,16 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'Senha atualizada!');
     }
 
+    public function updatePhoto(Request $request, User $user)
+    {
+        dd($request->all());
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Foto atualizada!');
+    }
+
     public function cadastrarMembro(Request $request,  User $user)
     {
         Family::create([

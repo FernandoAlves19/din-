@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\TransactionRequest;
 use App\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class HomeController extends Controller
 {
@@ -23,23 +24,27 @@ class HomeController extends Controller
     }else{
         $user1 = auth()->user()->id;
         $user2 = 0;
-
     }
 
         $month = empty($request->get('month')) ? date('m') : $request->get('month');
         $year = empty($request->get('year')) ? date('Y') : $request->get('year');
 
-        $transactions = Transaction::where('user_id', $user1)->orWhere('user_id', $user2)->whereMonth('date', $month)->whereYear('date', $year)->orderBy('date')->get();
-        $categories = Category::where('user_id', auth()->user()->id)->latest()->get();
+        $transactions = Transaction::whereIn('user_id', [$user1 , $user2])->whereMonth('date', $month)->whereYear('date', $year)->orderBy('date')->get();
+        // dd($transactions, $month, $year);
+        $categories = Category::where('user_id', auth()->user()->id)->orWhere('user_id', $user2)->latest()->get();
 
-        $month_zero = Transaction::where('user_id', $user1)->orWhere('user_id', $user2)->whereMonth('date', $month)->whereYear('date', $year)->whereType(0)->sum('value');
-        $month_one = Transaction::where('user_id', $user1)->orWhere('user_id', $user2)->whereMonth('date', $month)->whereYear('date', $year)->whereType(1)->sum('value');
+        $month_zero = Transaction::whereIn('user_id', [$user1 , $user2])->whereMonth('date', $month)->whereYear('date', $year)->whereType(0)->sum('value');
+        $month_one = Transaction::whereIn('user_id', [$user1 , $user2])->whereMonth('date', $month)->whereYear('date', $year)->whereType(1)->sum('value');
 
-        $year_zero = Transaction::where('user_id', $user1)->orWhere('user_id', $user2)->whereYear('date', $year)->whereType(0)->sum('value');
-        $year_one = Transaction::where('user_id', $user1)->orWhere('user_id', $user2)->whereYear('date', $year)->whereType(1)->sum('value');
+        $year_zero = Transaction::whereIn('user_id', [$user1 , $user2])->whereYear('date', $year)->whereType(0)->sum('value');
+        $year_one = Transaction::whereIn('user_id', [$user1 , $user2])->whereYear('date', $year)->whereType(1)->sum('value');
 
-        $all_zero = Transaction::where('user_id', $user1)->orWhere('user_id', $user2)->whereType(0)->sum('value');
-        $all_one = Transaction::where('user_id', $user1)->orWhere('user_id', $user2)->whereType(1)->sum('value');
+        $all_zero = Transaction::whereIn('user_id', [$user1 , $user2])->whereType(0)->sum('value');
+
+
+        $all_one = Transaction::where('user_id', $user1)->whereType(1)->sum('value');
+
+        // dd($month, $year, $transactions, $categories, $month_zero, $month_one, $year_zero, $year_one, $all_zero, $all_one);
 
         return view('home', compact('transactions', 'categories', 'month_zero', 'month_one', 'year_zero', 'year_one', 'all_zero', 'all_one'));
     }

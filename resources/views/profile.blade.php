@@ -32,6 +32,41 @@
                         </form>
                     </div>
                 </div>
+                <br>
+
+                <!-- Profile photo card -->
+                <div class="card">
+                    <div class="card-header text-center">
+                        <span>Foto</span>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <form method="post" action="{{ route('profile.update.photo', $user->id) }}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <div class="form-group">
+                                        <label for="Input1">Imagem</label>
+                                        <input type="file" class="form-control" id="Input1" name="name"
+                                            value="">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary" disabled>Salvar</button>
+                                </form>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex justify-content-center align-items-center flex-column">
+                                    <div style="display: inline-block !important" class="avatar avatar-xl">
+
+                                        <img style="width: 60%; height: 60%" src="./assets/compiled/jpg/1.jpg"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <br>
 
@@ -87,7 +122,8 @@
 
                             <div class="form-group">
                                 <label for="Input3">Nome da Família</label>
-                                <input type="text" class="form-control" id="Input3" name="familyName" value="">
+                                <input type="text" class="form-control" id="Input3" name="familyName"
+                                    value="{{ $user->family->name }}">
                             </div>
                             <div class="form-group">
                                 <label for="Input2">E-mail</label>
@@ -110,8 +146,7 @@
 
     <script>
         // Selecionar um elemento pelo seletor CSS
-       const elemento = document.querySelector("#card");
-       elemento.classList.remove("card");
-
-       </script>
+        const elemento = document.querySelector("#card");
+        elemento.classList.remove("card");
+    </script>
 @endsection
